@@ -50,7 +50,9 @@ export default {
         });
       } catch (err) {
         const msg =
-          err instanceof AxiosError ? err.response.data.msg : err.message;
+          err instanceof AxiosError
+            ? err.response?.data?.msg || "Unknown error"
+            : err.message;
         this.$store.commit("setError", msg);
         this.$swal({
           title: "Error",
