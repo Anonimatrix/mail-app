@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="loading"
-    class="fixed top-0 left-0 z-50 bg-black opacity-40 h-screen w-full"
-  ></div>
+  <loading-component v-if="loading"></loading-component>
   <div :class="'h-screen px-10 py-4'">
     <h1 class="text-3xl">Auto envio de mails :)</h1>
     <FormComponent :extraData="{ files }">
@@ -31,6 +28,7 @@
 <script>
 import DropComponent from "@/components/DropComponent.vue";
 import FormComponent from "@/components/FormComponent.vue";
+import LoadingComponent from "@/components/LoadingComponent.vue";
 import { mapState } from "vuex";
 
 export default {
@@ -64,6 +62,7 @@ export default {
   components: {
     DropComponent,
     FormComponent,
+    LoadingComponent,
   },
 };
 </script>
