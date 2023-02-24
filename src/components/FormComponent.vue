@@ -5,7 +5,7 @@
         type="text"
         v-model="data.subject"
         placeholder="Asunto"
-        class="rounded-md font-semibold bg-gray-900 py-2 px-3 block text-lg w-full bg-transparent text-gray-100 focus:outline-none placeholder:text-gray-300"
+        class="rounded-md font-semibold bg-gray-900 py-2 px-3 block w-full text-gray-100 focus:outline-none placeholder:text-gray-300"
       />
     </rainbow-border>
     <rainbow-border :class="'w-full mb-6'" weight="light">
@@ -13,7 +13,7 @@
         @changeData="(text) => (data.text = text)"
         placeholder="Contenido"
         rows="5"
-        class="font-semibold bg-gray-900 rounded-md px-2 py-3 block w-full text-lg resize-none overflow-hidden text-gray-100 focus:outline-none placeholder:text-gray-300"
+        class="font-semibold bg-gray-900 rounded-md px-2 py-3 block w-full resize-none overflow-hidden text-gray-100 focus:outline-none placeholder:text-gray-300"
       ></auto-resize-text-area>
     </rainbow-border>
     <slot></slot>
