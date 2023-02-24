@@ -1,7 +1,14 @@
 <template>
   <div ref="dropContainer" @click="$refs.input.click">
     <slot></slot>
-    <input ref="input" type="file" hidden @change="change" />
+    <input
+      ref="input"
+      type="file"
+      multiple
+      hidden
+      @change="change"
+      class="w-0 h-0"
+    />
   </div>
 </template>
 
@@ -9,7 +16,7 @@
 export default {
   name: "DropComponent",
   methods: {
-    dragover(e) {
+    prevent(e) {
       e.preventDefault();
       e.stopPropagation();
     },
@@ -17,15 +24,16 @@ export default {
       e.preventDefault();
       e.stopPropagation();
       if (!e.dataTransfer.files.length) return;
-      this.onFile(e.dataTransfer.files[0]);
+      this.onFile(e.dataTransfer.files);
     },
     change(e) {
       if (!e.target.files.length) return;
-      this.onFile(e.target.files[0]);
+      this.onFile(e.target.files);
     },
   },
   mounted() {
-    window.addEventListener("dragover", this.dragover);
+    window.addEventListener("drop", this.prevent);
+    window.addEventListener("dragover", this.prevent);
     this.$refs.dropContainer.addEventListener("drop", this.drop);
   },
   props: {

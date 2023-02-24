@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .rainbow {
+        @apply bg-gradient-to-l from-[#76f8c4] via-[#468af8] to-[#a046f3];
+    }
+}

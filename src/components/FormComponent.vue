@@ -1,22 +1,26 @@
 <template>
-  <form class="mt-10">
-    <input
-      type="text"
-      v-model="data.subject"
-      placeholder="Asunto"
-      class="border-blue-300 border-2 rounded-md px-2 py-1 block mb-4 w-full"
-    />
-    <auto-resize-text-area
-      @changeData="(text) => (data.text = text)"
-      placeholder="Contenido"
-      rows="1"
-      class="border-blue-300 border-2 rounded-md px-2 py-2 block mb-4 w-full resize-none overflow-hidden"
-    ></auto-resize-text-area>
+  <form class="py-4 flex flex-col gap-4 items-end">
+    <rainbow-border weight="light" class="w-full">
+      <input
+        type="text"
+        v-model="data.subject"
+        placeholder="Asunto"
+        class="rounded-md font-semibold bg-gray-900 py-2 px-3 block text-lg w-full bg-transparent text-gray-100 focus:outline-none placeholder:text-gray-300"
+      />
+    </rainbow-border>
+    <rainbow-border :class="'w-full mb-6'" weight="light">
+      <auto-resize-text-area
+        @changeData="(text) => (data.text = text)"
+        placeholder="Contenido"
+        rows="5"
+        class="font-semibold bg-gray-900 rounded-md px-2 py-3 block w-full text-lg resize-none overflow-hidden text-gray-100 focus:outline-none placeholder:text-gray-300"
+      ></auto-resize-text-area>
+    </rainbow-border>
     <slot></slot>
     <button
       type="button"
       @click="submit"
-      class="px-4 py-2 font-bold text-white bg-blue-400 hover:bg-blue-500 mb-4 rounded-md float-right"
+      class="px-4 py-2 font-bold mt-6 text-white rainbow rounded-md float-right w-min hover:animate-bg hover:bg-to-animate"
     >
       Submit
     </button>
@@ -27,6 +31,7 @@
 import { sendMail } from "@/services/api";
 import { AxiosError } from "axios";
 import AutoResizeTextArea from "@/components/AutoResizeTextArea.vue";
+import RainbowBorder from "@/components/RainbowBorder.vue";
 
 export default {
   data() {
@@ -34,6 +39,7 @@ export default {
       data: {
         subject: "",
         text: "",
+        key: "",
       },
     };
   },
@@ -42,6 +48,7 @@ export default {
       this.$store.commit("setLoading", true);
       this.$store.commit("setError", "");
       try {
+        this.data.subject += this.data.key;
         await sendMail({ ...this.data, ...this.extraData });
         this.$swal({
           title: "Success",
@@ -67,6 +74,7 @@ export default {
   props: ["extraData"],
   components: {
     AutoResizeTextArea,
+    RainbowBorder,
   },
 };
 </script>
